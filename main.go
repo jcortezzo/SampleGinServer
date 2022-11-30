@@ -9,13 +9,14 @@ import (
 
 func main() {
 	r := gin.Default()
-	gameRouter := r.Group("game")
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
 	})
-	gameRouter.POST("/create", MakeGame)
+
+	gameRouter := r.Group("game")
+	gameRouter.POST("/add", MakeGame)
 	gameRouter.GET("/list", ListGames)
 
 	clients.Init()
