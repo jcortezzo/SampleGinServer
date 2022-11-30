@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sample-gin-server/clients"
 	"sample-gin-server/models"
+	"sample-gin-server/util/errors"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,9 +20,8 @@ func ListGames(ctx *gin.Context) {
 	for k := range clients.GameDB {
 		var game models.Game
 		if err := json.Unmarshal([]byte(k), &game); err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"errors": "internal error, please try again later",
-			})
+			errors.ReturnInternalErrorResponse(ctx)
+			return
 		}
 		result[i] = game
 		i++

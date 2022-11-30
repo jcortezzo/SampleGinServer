@@ -18,6 +18,7 @@ func main() {
 	gameRouter := r.Group("game")
 	gameRouter.POST("/add", MakeGame)
 	gameRouter.GET("/list", ListGames)
+	gameRouter.POST("/search", SearchGame)
 
 	clients.Init()
 

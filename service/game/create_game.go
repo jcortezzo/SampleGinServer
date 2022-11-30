@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"sample-gin-server/clients"
 	"sample-gin-server/models"
+	"sample-gin-server/util/errors"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,13 +24,13 @@ func CreateGame(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"errors": fmt.Sprintf("%+v", err),
 		})
+		return
 	}
 
 	gameJSON, err := json.Marshal(gameRequest.Game)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"errors": "internal error, please try again later",
-		})
+		errors.ReturnInternalErrorResponse(ctx)
+		return
 	}
 	gameJSONString := string(gameJSON)
 

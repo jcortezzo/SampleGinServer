@@ -13,3 +13,7 @@ func MakeGame(ctx *gin.Context) {
 func ListGames(ctx *gin.Context) {
 	game.ListGames(ctx)
 }
+
+func SearchGame(ctx *gin.Context) {
+	game.SearchGame(ctx)
+}
